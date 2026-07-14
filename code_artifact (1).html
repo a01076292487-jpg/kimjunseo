@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신비의 섬, 제주 (Jeju Island)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Pretendard & Inter) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        jeju: {
+                            orange: '#F97316',   // 감귤 오렌지
+                            teal: '#0F766E',     // 제주 에메랄드 바다
+                            dark: '#1E293B',     // 현무암 그레이
+                            light: '#F8FAFC'     // 밝은 배경
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .blur-backdrop {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-jeju-light text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 bg-white/80 blur-backdrop border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl text-jeju-orange"><i class="fa-solid fa-citrus"></i>🍊</span>
+                    <span class="font-bold text-xl tracking-tight text-jeju-teal">JEJU TRAVEL</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-slate-600 hover:text-jeju-orange transition-colors">제주 소개</a>
+                    <a href="#spots" class="text-slate-600 hover:text-jeju-orange transition-colors">추천 명소</a>
+                    <a href="#foods" class="text-slate-600 hover:text-jeju-orange transition-colors">로컬 푸드</a>
+                    <a href="#bucketlist" class="text-slate-600 hover:text-jeju-orange transition-colors">버킷리스트</a>
+                    <a href="#github-guide" class="text-jeju-teal hover:text-jeju-orange transition-colors font-semibold"><i class="fa-brands fa-github"></i> 배포 가이드</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-slate-600 focus:outline-none p-2" aria-label="메뉴 열기">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 py-4 space-y-3 transition-all duration-300">
+            <a href="#about" class="block text-slate-600 hover:text-jeju-orange font-medium">제주 소개</a>
+            <a href="#spots" class="block text-slate-600 hover:text-jeju-orange font-medium">추천 명소</a>
+            <a href="#foods" class="block text-slate-600 hover:text-jeju-orange font-medium">로컬 푸드</a>
+            <a href="#bucketlist" class="block text-slate-600 hover:text-jeju-orange font-medium">버킷리스트</a>
+            <a href="#github-guide" class="block text-jeju-teal hover:text-jeju-orange font-bold"><i class="fa-brands fa-github"></i> 배포 가이드</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center bg-slate-900 overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 opacity-60 bg-cover bg-center transition-transform duration-1000 scale-105" style="background-image: url('https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=1600&auto=format&fit=crop&q=80');"></div>
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/40 to-jeju-light"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 sm:px-6 max-w-4xl">
+            <span class="inline-block bg-jeju-orange/90 text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4 shadow-md">실습 페이지 정상 작동 중</span>
+            <h1 class="text-4xl sm:text-6xl font-black text-white leading-tight drop-shadow-md">
+                푸른 바다와 바람의 섬, <br class="sm:hidden"><span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">아름다운 제주</span>
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-slate-100 font-light max-w-2xl mx-auto drop-shadow">
+                유네스코 세계 자연유산에 빛나는 화산섬 제주의 특별한 자연경관과 이국적인 감성을 지금 만나보세요.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#about" class="w-full sm:w-auto bg-jeju-teal hover:bg-teal-800 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 text-center">
+                    제주 탐험하기
+                </a>
+                <a href="#github-guide" class="w-full sm:w-auto bg-white/20 hover:bg-white/30 text-white blur-backdrop font-bold px-8 py-3.5 rounded-xl border border-white/30 transition-transform hover:-translate-y-0.5 text-center">
+                    <i class="fa-brands fa-github mr-2"></i> 깃허브 배포 방법
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">제주도는 어떤 곳인가요?</h2>
+            <div class="h-1.5 w-16 bg-jeju-orange mx-auto mt-4 rounded-full"></div>
+            <p class="mt-6 text-slate-600 leading-relaxed text-base sm:text-lg">
+                한반도 남서쪽에 위치한 제주도는 한국 최대의 섬이자 독특한 화산 지형, 온화한 기후, 독자적인 역사와 삼다(돌, 바람, 여자) 문화를 간직하고 있는 최고의 휴양지입니다.
+            </p>
+        </div>
+
+        <!-- 3 Feature Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-orange-100 text-jeju-orange rounded-xl flex items-center justify-center text-xl mb-6">
+                    <i class="fa-solid fa-mountain-sun"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">유네스코 세계유산</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    제주 화산섬과 용암동굴은 유네스코가 지정한 대한민국 최초의 세계자연유산으로 가치를 인정받고 있습니다.
+                </p>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-teal-100 text-jeju-teal rounded-xl flex items-center justify-center text-xl mb-6">
+                    <i class="fa-solid fa-water"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">사계절 따뜻한 기후</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    연중 온화한 난대성 기후로, 추운 겨울에도 이국적인 상록수와 귤나무, 동백꽃을 만나볼 수 있습니다.
+                </p>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-xl mb-6">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">다채로운 액티비티</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    에메랄드빛 해변에서 서핑, 패들보드를 즐기고 오름 트레킹과 올레길 걷기로 힐링의 시간을 가질 수 있습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="spots" class="py-20 bg-slate-50 border-y border-slate-200/50 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">제주 인기 명소 추천</h2>
+                    <p class="mt-2 text-slate-600">카테고리 버튼을 눌러 원하는 제주의 모습을 필터링해 보세요!</p>
+                </div>
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0">
+                    <button onclick="filterSpots('all')" class="spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-jeju-teal text-white shadow-sm transition-all">전체</button>
+                    <button onclick="filterSpots('nature')" class="spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">자연/힐링</button>
+                    <button onclick="filterSpots('ocean')" class="spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">해변/바다</button>
+                    <button onclick="filterSpots('activity')" class="spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">문화/액티비티</button>
+                </div>
+            </div>
+
+            <!-- Spots Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Spot Card 1 (Nature) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="nature">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1616036740257-9449ea1f6605?w=800&auto=format&fit=crop&q=80" alt="한라산 국립공원" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">자연/힐링</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">한라산 국립공원</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            남한 최고봉(1,947m)으로 봄의 철쭉, 가을의 단풍, 겨울의 설경 등 사계절이 신비로운 제주의 상징입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Spot Card 2 (Ocean) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="ocean">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1612858012231-599b0c20fc9a?w=800&auto=format&fit=crop&q=80" alt="협재 해수욕장" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-sky-600 text-white text-xs font-semibold px-3 py-1 rounded-full">해변/바다</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">협재 해수욕장</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            투명하고 맑은 에메랄드빛 바다와 부드러운 은모래, 저 멀리 보이는 비양도 너머의 낙조가 환상적인 해변입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Spot Card 3 (Activity) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="activity">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=800&auto=format&fit=crop&q=80" alt="오설록 티 뮤지엄" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">문화/액티비티</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">오설록 티 뮤지엄</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            드넓게 펼쳐진 싱그러운 유기농 차밭을 산책하고, 최고급 차와 시그니처 녹차 아이스크림을 맛볼 수 있는 곳입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Spot Card 4 (Nature) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="nature">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&auto=format&fit=crop&q=80" alt="성산 일출봉" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">자연/힐링</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">성산 일출봉</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            바다 한가운데 우뚝 솟은 거대한 왕관 모양의 화산구로, 정상에서 바라보는 동해의 일출은 평생 잊지 못할 장관입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Spot Card 5 (Ocean) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="ocean">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80" alt="월정리 해변" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-sky-600 text-white text-xs font-semibold px-3 py-1 rounded-full">해변/바다</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">월정리 해변</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            달이 머무는 바다라는 이름답게 잔잔하고 이국적인 카페 거리와 오색의 길거리 의자들이 포토존을 자아냅니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Spot Card 6 (Activity) -->
+                <div class="spot-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300" data-category="activity">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80" alt="제주 민속촌" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">문화/액티비티</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900">제주 돌문화공원</h3>
+                        <p class="mt-2 text-slate-600 text-sm leading-relaxed">
+                            제주도 생성 설화와 주거 역사, 수많은 돌하르방 등 제주의 독특하고 영적인 석조 예술들을 만날 수 있는 테마공원입니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Food Section -->
+    <section id="foods" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">제주에서 꼭 먹어봐야 할 먹거리</h2>
+            <div class="h-1.5 w-16 bg-jeju-orange mx-auto mt-4 rounded-full"></div>
+            <p class="mt-4 text-slate-600">청정 자연의 식재료로 빚어낸 제주만의 로컬 소울 푸드 리스트</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Food 1 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex items-center space-x-4">
+                <div class="text-3xl">🍊</div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">감귤 / 한라봉</h3>
+                    <p class="text-slate-500 text-xs mt-1">달콤하고 향긋한 제주의 가을·겨울 대표 특산물</p>
+                </div>
+            </div>
+            <!-- Food 2 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex items-center space-x-4">
+                <div class="text-3xl">🥩</div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">제주 흑돼지 구이</h3>
+                    <p class="text-slate-500 text-xs mt-1">멜젓에 콕 찍어먹는 고소하고 쫄깃한 식감의 일품 돈육</p>
+                </div>
+            </div>
+            <!-- Food 3 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex items-center space-x-4">
+                <div class="text-3xl">🍜</div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">고기 국수</h3>
+                    <p class="text-slate-500 text-xs mt-1">진하게 우려낸 돼지 사골 육수에 야들야들한 돔베고기</p>
+                </div>
+            </div>
+            <!-- Food 4 -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex items-center space-x-4">
+                <div class="text-3xl">🐟</div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">갈치조림 / 갈치회</h3>
+                    <p class="text-slate-500 text-xs mt-1">갓 잡은 싱싱하고 은빛 영롱한 갈치의 달콤짭조름한 조림</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bucketlist Section -->
+    <section id="bucketlist" class="py-20 bg-emerald-50 border-t border-slate-200/40 w-full">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-3xl shadow-xl p-8 sm:p-10 border border-slate-100">
+                <div class="text-center mb-8">
+                    <span class="text-3xl">📝</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">나만의 제주 여행 버킷리스트</h2>
+                    <p class="text-sm text-slate-500 mt-2">제주에 가면 하고 싶은 것들을 계획해 보세요. 브라우저에 저장됩니다!</p>
+                </div>
+
+                <!-- Input Box -->
+                <form id="bucket-form" class="flex gap-2 mb-6">
+                    <input type="text" id="bucket-input" placeholder="예: 해안도로에서 스쿠터 타기" required
+                           class="flex-1 px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-jeju-teal focus:border-transparent text-sm sm:text-base">
+                    <button type="submit" class="bg-jeju-teal hover:bg-teal-800 text-white font-bold px-6 py-3 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-plus text-xs"></i> 추가
+                    </button>
+                </form>
+
+                <!-- List Items Container -->
+                <ul id="bucket-list" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+                    <!-- Dynamic Items will be rendered here -->
+                </ul>
+
+                <!-- Helper Buttons -->
+                <div class="mt-6 flex justify-between items-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+                    <span id="bucket-counter">완료된 버킷: 0 / 0</span>
+                    <button onclick="resetBuckets()" class="hover:text-red-500 font-medium transition-colors"><i class="fa-solid fa-trash-can"></i> 초기화</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Pages Guide Section -->
+    <section id="github-guide" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+        <div class="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <!-- Background Shape Effect -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-jeju-teal/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-jeju-orange/10 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-3xl text-jeju-orange"><i class="fa-brands fa-github"></i></span>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight">GitHub Pages 배포 가이드</h2>
+                </div>
+                <p class="text-slate-300 text-sm sm:text-base mb-8">
+                    이 HTML 소스 코드를 사용하여 나만의 멋진 포트폴리오 사이트를 깃허브에 무료로 배포해 보세요! 아래 단계를 따라 클릭 몇 번이면 끝납니다.
+                </p>
+
+                <!-- Step-by-Step Accordion -->
+                <div class="space-y-4">
+                    <!-- Step 1 -->
+                    <div class="border border-slate-800 rounded-xl bg-slate-950 overflow-hidden">
+                        <button onclick="toggleAccordion(1)" class="w-full flex justify-between items-center px-6 py-4 text-left font-semibold text-slate-200 hover:bg-slate-900 transition-colors">
+                            <span>1단계: GitHub 리포지토리(Repository) 만들기</span>
+                            <i id="arrow-1" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                        </button>
+                        <div id="content-1" class="hidden px-6 pb-5 text-sm text-slate-400 border-t border-slate-900 pt-4 leading-relaxed space-y-2">
+                            <p>1. <a href="https://github.com" target="_blank" class="text-jeju-orange underline font-semibold">GitHub</a> 로그인 후 우측 상단의 <strong class="text-slate-100">+ New</strong> 버튼을 누릅니다.</p>
+                            <p>2. Repository name에 저장소 이름(예: <code class="bg-slate-900 text-orange-400 px-1.5 py-0.5 rounded text-xs">my-jeju-page</code>)을 입력합니다.</p>
+                            <p>3. <strong>Public</strong>을 선택하고, 하단의 <strong class="text-slate-100">Create repository</strong>를 클릭합니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="border border-slate-800 rounded-xl bg-slate-950 overflow-hidden">
+                        <button onclick="toggleAccordion(2)" class="w-full flex justify-between items-center px-6 py-4 text-left font-semibold text-slate-200 hover:bg-slate-900 transition-colors">
+                            <span>2단계: index.html 파일 업로드하기</span>
+                            <i id="arrow-2" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                        </button>
+                        <div id="content-2" class="hidden px-6 pb-5 text-sm text-slate-400 border-t border-slate-900 pt-4 leading-relaxed space-y-2">
+                            <p>1. 생성된 빈 리포지토리 화면에서 <strong class="text-slate-100">uploading an existing file</strong> 링크를 클릭합니다.</p>
+                            <p>2. 현재 이 페이지 소스 코드가 저장된 <code class="bg-slate-900 text-orange-400 px-1.5 py-0.5 rounded text-xs">index.html</code> 파일을 마우스로 드래그하여 업로드합니다.</p>
+                            <p>3. 화면 하단의 녹색 <strong class="text-slate-100">Commit changes</strong> 버튼을 누릅니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="border border-slate-800 rounded-xl bg-slate-950 overflow-hidden">
+                        <button onclick="toggleAccordion(3)" class="w-full flex justify-between items-center px-6 py-4 text-left font-semibold text-slate-200 hover:bg-slate-900 transition-colors">
+                            <span>3단계: Pages 기능 활성화 및 확인</span>
+                            <i id="arrow-3" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                        </button>
+                        <div id="content-3" class="hidden px-6 pb-5 text-sm text-slate-400 border-t border-slate-900 pt-4 leading-relaxed space-y-2">
+                            <p>1. 리포지토리 상단의 메뉴 탭에서 ⚙️ <strong class="text-slate-100">Settings</strong>를 클릭합니다.</p>
+                            <p>2. 왼쪽 사이드바에서 <strong class="text-slate-100">Pages</strong> 탭을 선택합니다.</p>
+                            <p>3. Build and deployment의 Branch 항목을 <strong class="text-slate-100">None</strong>에서 <strong class="text-slate-100">main</strong>(또는 master)으로 변경하고 우측의 <strong>Save</strong>를 클릭합니다.</p>
+                            <p>4. 1~2분 정도 기다린 후, 상단에 생성된 <strong class="text-emerald-400">"Your site is live at..."</strong> 주소로 이동하면 전 세계 누구나 접속할 수 있는 나만의 제주도 웹사이트가 생성됩니다! 🎉</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 mt-auto py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div class="flex justify-center items-center gap-2">
+                <span class="text-lg text-jeju-orange">🍊</span>
+                <span class="font-bold text-lg text-white tracking-wider">JEJU TRAVEL & GITHUB PAGES</span>
+            </div>
+            <p class="text-xs sm:text-sm max-w-lg mx-auto">
+                본 페이지는 GitHub Pages 배포 실습을 장려하기 위해 아름다운 UI와 상호작용형 유틸리티가 빌트인되어 구현된 교육용 템플릿입니다.
+            </p>
+            <div class="flex justify-center gap-4 text-xs">
+                <button onclick="copyCurrentURL()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-lg border border-slate-800 transition-colors">
+                    <i class="fa-solid fa-link mr-1"></i> 주소 복사하기
+                </button>
+            </div>
+            <!-- Custom Toast notification inside page, instead of alert() -->
+            <div id="toast-msg" class="hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl text-sm items-center gap-2 transition-all duration-300 z-50 border border-slate-800">
+                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                <span id="toast-text">복사되었습니다!</span>
+            </div>
+            <p class="text-[11px] text-slate-600">
+                © 2026. Jeju GitHub Pages Deployment Practice. Built with Tailwind CSS & Gemini.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click item
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Spot Filter Mechanism ---
+        function filterSpots(category) {
+            // Update Active Tab Styles
+            const filterBtns = document.querySelectorAll('.spot-filter-btn');
+            filterBtns.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.className = "spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-jeju-teal text-white shadow-sm transition-all";
+                } else {
+                    btn.className = "spot-filter-btn px-5 py-2 rounded-full text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all";
+                }
+            });
+
+            // Filter cards
+            const cards = document.querySelectorAll('.spot-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => { card.style.display = 'none'; }, 200);
+                }
+            });
+        }
+
+        // --- Custom Toast Notification ---
+        function showToast(message) {
+            const toast = document.getElementById('toast-msg');
+            const toastText = document.getElementById('toast-text');
+            toastText.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // --- Copy to clipboard (custom, safe) ---
+        function copyCurrentURL() {
+            const dummy = document.createElement('input');
+            const text = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast("링크가 클립보드에 안전하게 복사되었습니다! 친구들에게 공유해 보세요.");
+        }
+
+        // --- GitHub Pages Accordion Toggle ---
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // --- Local Storage Travel Bucket List ---
+        let buckets = [
+            { text: "한라산 백록담 정상 정복하기 ⛰️", completed: true },
+            { text: "용머리 해안 기암절벽 사이 산책하기 🌊", completed: false },
+            { text: "해질녘 협재 해수욕장 석양 보기 🌅", completed: false },
+            { text: "서귀포 올레시장에서 마늘만두와 모닥치기 먹기 🥟", completed: false }
+        ];
+
+        // Load items from local storage
+        if (localStorage.getItem('jeju_buckets')) {
+            try {
+                buckets = JSON.parse(localStorage.getItem('jeju_buckets'));
+            } catch (e) {
+                console.error("Local storage read error, fallback to defaults");
+            }
+        }
+
+        const bucketForm = document.getElementById('bucket-form');
+        const bucketInput = document.getElementById('bucket-input');
+        const bucketList = document.getElementById('bucket-list');
+        const bucketCounter = document.getElementById('bucket-counter');
+
+        function saveAndRender() {
+            localStorage.setItem('jeju_buckets', JSON.stringify(buckets));
+            renderBuckets();
+        }
+
+        function renderBuckets() {
+            bucketList.innerHTML = '';
+            let completedCount = 0;
+
+            buckets.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = `flex items-center justify-between p-4 rounded-xl border transition-all ${
+                    item.completed 
+                    ? 'bg-slate-50 border-slate-200 text-slate-400 line-through' 
+                    : 'bg-white border-slate-100 text-slate-800 shadow-sm hover:border-slate-200'
+                }`;
+
+                if (item.completed) completedCount++;
+
+                // Left element (checkbox + text)
+                const leftDiv = document.createElement('div');
+                leftDiv.className = 'flex items-center space-x-3 flex-1 cursor-pointer';
+                leftDiv.onclick = () => toggleBucket(index);
+
+                const checkbox = document.createElement('span');
+                checkbox.className = `w-5 h-5 rounded-full border flex items-center justify-center text-xs ${
+                    item.completed ? 'bg-jeju-teal border-jeju-teal text-white' : 'border-slate-300 bg-white'
+                }`;
+                checkbox.innerHTML = item.completed ? '<i class="fa-solid fa-check"></i>' : '';
+
+                const textSpan = document.createElement('span');
+                textSpan.className = 'font-medium text-sm sm:text-base';
+                textSpan.textContent = item.text;
+
+                leftDiv.appendChild(checkbox);
+                leftDiv.appendChild(textSpan);
+
+                // Right element (delete btn)
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'text-slate-400 hover:text-red-500 p-1.5 transition-colors';
+                deleteBtn.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteBucket(index);
+                };
+
+                li.appendChild(leftDiv);
+                li.appendChild(deleteBtn);
+                bucketList.appendChild(li);
+            });
+
+            bucketCounter.textContent = `완료된 버킷: ${completedCount} / ${buckets.length}`;
+        }
+
+        function toggleBucket(index) {
+            buckets[index].completed = !buckets[index].completed;
+            saveAndRender();
+        }
+
+        function deleteBucket(index) {
+            buckets.splice(index, 1);
+            saveAndRender();
+            showToast("목록이 안전하게 삭제되었습니다.");
+        }
+
+        function resetBuckets() {
+            buckets = [
+                { text: "한라산 백록담 정상 정복하기 ⛰️", completed: false },
+                { text: "용머리 해안 기암절벽 사이 산책하기 🌊", completed: false },
+                { text: "해질녘 협재 해수욕장 석양 보기 🌅", completed: false },
+                { text: "서귀포 올레시장에서 마늘만두와 모닥치기 먹기 🥟", completed: false }
+            ];
+            saveAndRender();
+            showToast("기본 버킷리스트로 초기화되었습니다!");
+        }
+
+        bucketForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = bucketInput.value.trim();
+            if (text) {
+                buckets.push({ text: text, completed: false });
+                bucketInput.value = '';
+                saveAndRender();
+                showToast("새로운 제주도 계획이 등록되었습니다!");
+            }
+        });
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            renderBuckets();
+        };
+    </script>
+</body>
+</html>
